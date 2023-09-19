@@ -1,0 +1,26 @@
+version: '3'
+services:
+    db:
+        image: postgres
+        container_name: db
+        hostname: db
+        volumes:
+        - db_data:/var/lib/postgresql/data/
+        - ./init.sql:/docker-entrypoint-initdb.d/1-schema.sql
+        restart: always
+        ports:
+        - '5432:5432'
+        environment:
+        - POSTGRES_USER=admin_poc
+        - POSTGRES_PASSWORD=passwd
+        - POSTGRES_DB=poc_db
+        networks:
+        - pocnet
+        
+      
+volumes:
+ db_data:
+ 
+networks:
+  pocnet:
+    name: pocnet
